@@ -5,8 +5,7 @@ import { Snowflake } from "./misc.ts";
 export const Status = z.enum(["online", "dnd", "idle", "invisible", "offline"]);
 export type Status = z.infer<typeof Status>;
 
-/** Represents the possible activity types of Discord. */
-export enum ActivityType {
+enum _ActivityType {
   /** Playing {name} */
   GAME = 0,
   /** Streaming {details} */
@@ -22,8 +21,8 @@ export enum ActivityType {
 }
 
 /** Represents the possible activity types of Discord. */
-export const ActivityTypeSchema = z.nativeEnum(ActivityType);
-export type ActivityTypeSchema = z.infer<typeof ActivityTypeSchema>;
+export const ActivityType = z.nativeEnum(_ActivityType);
+export type ActivityType = z.infer<typeof ActivityType>;
 
 /**
  * Represents an activity on Discord.
@@ -33,7 +32,7 @@ export const Activity = z.object({
   /** The name of the activity. */
   name: z.string(),
   /** The type of the activity. @see ActivityType */
-  type: ActivityTypeSchema,
+  type: ActivityType,
   /** The stream URL of the activity, validated when type is 1. */
   url: z.string().url().nullish(),
   /** Unix Timestamp (ms) of when the activity was added to the user session. */

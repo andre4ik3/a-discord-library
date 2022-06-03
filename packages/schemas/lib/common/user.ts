@@ -1,16 +1,15 @@
 import { z } from "../../_deps.ts";
 import { Snowflake, Locale } from "./misc.ts";
 
-/** The possible type of premium (aka Nitro) that a user can have. */
-export enum PremiumType {
+enum _PremiumType {
   NONE = 0,
   CLASSIC = 1,
   NITRO = 2,
 }
 
 /** The possible type of premium (aka Nitro) that a user can have. */
-export const PremiumTypeSchema = z.nativeEnum(PremiumType);
-export type PremiumTypeSchema = z.infer<typeof PremiumTypeSchema>;
+export const PremiumType = z.nativeEnum(_PremiumType);
+export type PremiumType = z.infer<typeof PremiumType>;
 
 /** Represents a user on Discord. */
 export const User = z.object({
@@ -44,7 +43,7 @@ export const User = z.object({
   /** The flags of a user's account. */
   flags: z.number().int().optional(),
   /** The premium type of the user. @see PremiumType */
-  premium_type: PremiumTypeSchema.optional(),
+  premium_type: PremiumType.optional(),
   /** The public flags of the user (i.e. badges). */
   public_flags: z.number().int().optional(),
 });

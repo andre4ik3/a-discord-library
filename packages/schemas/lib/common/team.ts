@@ -2,20 +2,19 @@ import { z } from "../../_deps.ts";
 import { Snowflake } from "./misc.ts";
 import { User } from "./user.ts";
 
-/** The membership state of a team member. */
-export enum MembershipState {
+enum _MembershipState {
   INVITED = 1,
   ACCEPTED = 2,
 }
 
 /** The membership state of a team member. */
-export const MembershipStateSchema = z.nativeEnum(MembershipState);
-export type MembershipStateSchema = z.infer<typeof MembershipStateSchema>;
+export const MembershipState = z.nativeEnum(_MembershipState);
+export type MembershipState = z.infer<typeof MembershipState>;
 
 /** Represents a member that is part of a team. */
 export const TeamMember = z.object({
   /** The membership state of the user. */
-  membership_state: MembershipStateSchema,
+  membership_state: MembershipState,
   /** Currently, is always `["*"]` */
   permissions: z.array(z.literal("*")),
   /** The ID of the parent team that the user is a member of. */
