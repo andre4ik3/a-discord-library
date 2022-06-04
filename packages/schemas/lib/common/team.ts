@@ -13,13 +13,9 @@ export type MembershipState = z.infer<typeof MembershipState>;
 
 /** Represents a member that is part of a team. */
 export const TeamMember = z.object({
-  /** The membership state of the user. */
   membership_state: MembershipState,
-  /** Currently, is always `["*"]` */
   permissions: z.array(z.literal("*")),
-  /** The ID of the parent team that the user is a member of. */
   team_id: Snowflake,
-  /** Partial user object representing the member. */
   user: User.pick({
     avatar: true,
     discriminator: true,
@@ -30,17 +26,15 @@ export const TeamMember = z.object({
 
 export type TeamMember = z.infer<typeof TeamMember>;
 
-/** Represents a team on Discord. */
+/**
+ * Represents a team on Discord.
+ * @see https://discord.dev/topics/teams#data-models-team-object
+ */
 export const Team = z.object({
-  /** A hash of the team icon image. */
   icon: z.string().nullable(),
-  /** The unique ID of the team. Every team is actually a "pseudo-user". */
   id: Snowflake,
-  /** The members of the team. */
   members: z.array(TeamMember),
-  /** The name of the team. */
   name: z.string(),
-  /** The ID of the team owner. */
   owner_user_id: Snowflake,
 });
 

@@ -90,6 +90,26 @@ export const GuildPremiumTier = z.nativeEnum(_GuildPremiumTier);
 export type GuildPremiumTier = z.infer<typeof GuildPremiumTier>;
 
 /**
+ * Represents a welcome screen object.
+ * @see https://discord.dev/resources/guild#welcome-screen-object
+ */
+export const WelcomeScreen = z.object({
+  description: z.string().nullable(),
+  welcome_channels: z
+    .array(
+      z.object({
+        channel_id: Snowflake,
+        description: z.string(),
+        emoji_id: Snowflake.nullable(),
+        emoji_name: z.string().nullable(),
+      })
+    )
+    .max(5),
+});
+
+export type WelcomeScreen = z.infer<typeof WelcomeScreen>;
+
+/**
  * Represents an unavailable guild in Discord.
  * @see https://discord.dev/resources/guild#unavailable-guild-object
  */
@@ -143,7 +163,7 @@ export const AvailableGuild = z.object({
   max_video_channel_users: z.number().optional(),
   approximate_member_count: z.number().optional(),
   approximate_presence_count: z.number().optional(),
-  welcome_screen: z.unknown().optional(), // TODO
+  welcome_screen: WelcomeScreen.optional(),
   nsfw_level: GuildNSFWLevel,
   stickers: z.array(z.unknown()).optional(),
   premium_progress_bar_enabled: z.boolean(),
