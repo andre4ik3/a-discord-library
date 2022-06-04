@@ -18,6 +18,10 @@ export const Permissions = z
 
 export type Permissions = z.infer<typeof Permissions>;
 
+/** Utility type to represent a hex color code. */
+export const HexColor = z.number().min(0x000000).max(0xffffff);
+export type HexColor = z.infer<typeof HexColor>;
+
 /** Represents a locale on Discord. */
 export const Locale = z.enum([
   "da",
